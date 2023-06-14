@@ -9,7 +9,7 @@
 </head>
 
   <style>
-  /*!***************************************************************************************************************!*\
+/*!***************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./src/page3/index.scss ***!
   \***************************************************************************************************************/
 /* http://meyerweb.com/eric/tools/css/reset/ 
@@ -129,6 +129,24 @@ input[type=checkbox] {
   -webkit-transform: scale(2); /* Safari and Chrome */
   -o-transform: scale(2); /* Opera */
   transform: scale(2);
+  cursor: pointer;
+}
+
+thead {
+  color: #fff;
+}
+thead th {
+  padding: 16px;
+}
+
+tbody tr:nth-child(odd) {
+  background: #272727;
+}
+tbody tr:nth-child(even) {
+  background: #202020;
+}
+tbody tr:hover {
+  background: rgba(255, 255, 255, 0.15);
 }
 
 </style>
@@ -141,7 +159,8 @@ input[type=checkbox] {
             <table>
                 <thead>
                     <tr>
-                        <th> </th>
+                        <th></th>
+                        <th></th>
                         <th colspan="2">Name </th>
                         <th>Price</th>
                     </tr>
