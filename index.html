@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="uk">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WoTLK | Animated Constellation Shopping Calculator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+  <style>
+  /*!***************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./src/page3/index.scss ***!
+  \***************************************************************************************************************/
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+
+body {
+  line-height: 1;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+blockquote, q {
+  quotes: none;
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: "";
+  content: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: sans-serif;
+}
+
+main {
+  background: #202020;
+}
+
+.container {
+  width: 1080px;
+  max-width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  grid-template-areas: "sidebar table";
+  position: relative;
+  margin: 0 auto;
+  padding: 20px 0;
+}
+
+sidebar {
+  padding: 16px;
+  position: fixed;
+  top: 20px;
+  grid-area: sidebar;
+  color: #fff;
+}
+
+table {
+  grid-area: table;
+}
+
+.name {
+  color: #a335ee;
+}
+
+.price {
+  color: #fff;
+  text-decoration: none;
+}
+
+#price {
+  margin: 0 0 0 16px;
+}
+
+td {
+  vertical-align: middle;
+  text-align: center;
+  padding: 8px;
+}
+
+input[type=checkbox] {
+  /* Double-sized Checkboxes */
+  -ms-transform: scale(2); /* IE */
+  -moz-transform: scale(2); /* FF */
+  -webkit-transform: scale(2); /* Safari and Chrome */
+  -o-transform: scale(2); /* Opera */
+  transform: scale(2);
+}
+
+</style>
+
+<body>
+    <header></header>
+    <main>
+        <div class="container">
+            <sidebar>Total price<span id="price">0</span></sidebar>
+            <table>
+                <thead>
+                    <tr>
+                        <th> </th>
+                        <th colspan="2">Name </th>
+                        <th>Price</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </main>
+</body>
+  <script type="application/javascript">
+const data = [
+  {image: "inv_wand_29.jpg", name: "Petrified Ivy Sprig", price: "15", link: "https://www.wowhead.com/wotlk/item=45294/petrified-ivy-sprig"},
+  {image: "inv_throwingknife_08.jpg", name: "Twirling Blades", price: "15", link: "https://www.wowhead.com/wotlk/item=45296/twirling-blades"},
+  {image: "inv_weapon_shortblade_77.jpg", name: "Perilous Bite", price: "25", link: "https://www.wowhead.com/wotlk/item=45448/perilous-bite"},
+  {image: "inv_weapon_hand_22.jpg", name: "The Masticator", price: "38", link: "https://www.wowhead.com/wotlk/item=45449/the-masticator"},
+  {image: "inv_sword_136.jpg", name: "Aesir's Edge", price: "50", link: "https://www.wowhead.com/wotlk/item=45868/aesirs-edge"},
+  {image: "inv_weapon_rifle_33.jpg", name: "Magnetized Projectile Emitter", price: "38", link: "https://www.wowhead.com/wotlk/item=45870/magnetized-projectile-emitter"},
+  {image: "inv_mace_90.jpg", name: "Shiver", price: "25", link: "https://www.wowhead.com/wotlk/item=45876/shiver"},
+  {image: "inv_shield_66.jpg", name: "The Boreal Guard", price: "25", link: "https://www.wowhead.com/wotlk/item=45877/the-boreal-guard"},
+  {image: "inv_staff_94.jpg", name: "Icecore Staff", price: "50", link: "https://www.wowhead.com/wotlk/item=45886/icecore-staff"},
+  {image: "inv_shield_65.jpg", name: "Ice Layered Barrier", price: "25", link: "https://www.wowhead.com/wotlk/item=45887/ice-layered-barrier"},
+  {image: "inv_weapon_shortblade_79.jpg", name: "Combatant's Bootblade", price: "25", link: "https://www.wowhead.com/wotlk/item=45930/combatants-bootblade"},
+  {image: "inv_sword_133.jpg", name: "Serilas, Blood Blade of Invar One-Arm", price: "25", link: "https://www.wowhead.com/wotlk/item=45947/serilas-blood-blade-of-invar-one-arm"},
+  {image: "inv_sword_132.jpg", name: "Fusion Blade", price: "38", link: "https://www.wowhead.com/wotlk/item=45990/fusion-blade"},
+  {image: "inv_staff_94.jpg", name: "Tortured Earth", price: "50", link: "https://www.wowhead.com/wotlk/item=46033/tortured-earth"},
+  {image: "inv_mace_92.jpg", name: "Aesuga, Hand of the Ardent Champion", price: "38", link: "https://www.wowhead.com/wotlk/item=46035/aesuga-hand-of-the-ardent-champion"},
+  {image: "inv_sword_133.jpg", name: "Void Sabre", price: "25", link: "https://www.wowhead.com/wotlk/item=46036/void-sabre"},
+  {image: "inv_mace_93.jpg", name: "Hammer of Crushing Whispers", price: "50", link: "https://www.wowhead.com/wotlk/item=46067/hammer-of-crushing-whispers"},
+  {image: "inv_mace_91.jpg", name: "Caress of Insanity", price: "25", link: "https://www.wowhead.com/wotlk/item=46097/caress-of-insanity"},
+  {image: "inv_gauntlets_24.jpg", name: "Handguards of Potent Cures", price: "19", link: "https://www.wowhead.com/wotlk/item=45293/handguards-of-potent-cures"},
+  {image: "inv_pants_plate_15.jpg", name: "Gilded Steel Legplates", price: "25", link: "https://www.wowhead.com/wotlk/item=45295/gilded-steel-legplates"},
+  {image: "inv_jewelry_ring_63.jpg", name: "Shimmering Seal", price: "15", link: "https://www.wowhead.com/wotlk/item=45297/shimmering-seal"},
+  {image: "inv_shoulder_73.jpg", name: "Mantle of Fiery Vengeance", price: "19", link: "https://www.wowhead.com/wotlk/item=45300/mantle-of-fiery-vengeance"},
+  {image: "inv_jewelry_ring_45.jpg", name: "Watchful Eye of Fate", price: "15", link: "https://www.wowhead.com/wotlk/item=45447/watchful-eye-of-fate"},
+  {image: "inv_belt_37a.jpg", name: "Belt of the Crystal Tree", price: "19", link: "https://www.wowhead.com/wotlk/item=45455/belt-of-the-crystal-tree"},
+  {image: "inv_jewelry_ring_71.jpg", name: "Loop of the Agile", price: "15", link: "https://www.wowhead.com/wotlk/item=45456/loop-of-the-agile"},
+  {image: "inv_chest_mail_04.jpg", name: "Breastplate of the Stoneshaper", price: "25", link: "https://www.wowhead.com/wotlk/item=45867/breastplate-of-the-stoneshaper"},
+  {image: "inv_bracer_15.jpg", name: "Fluxing Energy Coils", price: "15", link: "https://www.wowhead.com/wotlk/item=45869/fluxing-energy-coils"},
+  {image: "achievement_dungeon_ulduarraid_misc_02.jpg", name: "Seal of Ulduar", price: "15", link: "https://www.wowhead.com/wotlk/item=45871/seal-of-ulduar"},
+  {image: "inv_bracer_32.jpg", name: "Bitter Cold Armguards", price: "15", link: "https://www.wowhead.com/wotlk/item=45888/bitter-cold-armguards"},
+  {image: "inv_gauntlets_62.jpg", name: "Gauntlets of the Thunder God", price: "19", link: "https://www.wowhead.com/wotlk/item=45928/gauntlets-of-the-thunder-god"},
+  {image: "spell_ice_rune.jpg", name: "Sif's Remembrance", price: "19", link: "https://www.wowhead.com/wotlk/item=45929/sifs-remembrance"},
+  {image: "inv_misc_rune_11.jpg", name: "Mjolnir Runestone", price: "19", link: "https://www.wowhead.com/wotlk/item=45931/mjolnir-runestone"},
+  {image: "inv_jewelry_necklace_46.jpg", name: "Pendant of the Shallow Grave", price: "15", link: "https://www.wowhead.com/wotlk/item=45933/pendant-of-the-shallow-grave"},
+  {image: "inv_gauntlets_61.jpg", name: "Gloves of Whispering Winds", price: "19", link: "https://www.wowhead.com/wotlk/item=45943/gloves-of-whispering-winds"},
+  {image: "spell_nature_wispsplodegreen.jpg", name: "Seed of Budding Carnage", price: "15", link: "https://www.wowhead.com/wotlk/item=45945/seed-of-budding-carnage"},
+  {image: "inv_jewelry_ring_65.jpg", name: "Fire Orchid Signet", price: "15", link: "https://www.wowhead.com/wotlk/item=45946/fire-orchid-signet"},
+  {image: "inv_pants_plate_21.jpg", name: "Fused Alloy Legplates", price: "25", link: "https://www.wowhead.com/wotlk/item=45982/fused-alloy-legplates"},
+  {image: "inv_boots_plate_11.jpg", name: "Greaves of the Iron Army", price: "19", link: "https://www.wowhead.com/wotlk/item=45988/greaves-of-the-iron-army"},
+  {image: "inv_boots_chain_03.jpg", name: "Tempered Mercury Greaves", price: "19", link: "https://www.wowhead.com/wotlk/item=45989/tempered-mercury-greaves"},
+  {image: "inv_gizmo_newgoggles.jpg", name: "Mimiron's Flight Goggles", price: "25", link: "https://www.wowhead.com/wotlk/item=45993/mimirons-flight-goggles"},
+  {image: "inv_misc_cape_14.jpg", name: "Drape of the Faceless General", price: "15", link: "https://www.wowhead.com/wotlk/item=46032/drape-of-the-faceless-general"},
+  {image: "inv_pants_cloth_31.jpg", name: "Leggings of Profound Darkness", price: "25", link: "https://www.wowhead.com/wotlk/item=46034/leggings-of-profound-darkness"},
+  {image: "inv_shoulder_49.jpg", name: "Shoulderplates of the Celestial Watch", price: "24", link: "https://www.wowhead.com/wotlk/item=46037/shoulderplates-of-the-celestial-watch"},
+  {image: "spell_shadow_seedofdestruction.jpg", name: "Dark Matter", price: "24", link: "https://www.wowhead.com/wotlk/item=46038/dark-matter"},
+  {image: "inv_chest_plate20.jpg", name: "Breastplate of the Timeless", price: "32", link: "https://www.wowhead.com/wotlk/item=46039/breastplate-of-the-timeless"},
+  {image: "inv_jewelry_necklace_47.jpg", name: "Strength of the Heavens", price: "19", link: "https://www.wowhead.com/wotlk/item=46040/strength-of-the-heavens"},
+  {image: "inv_belt_48a.jpg", name: "Starfall Girdle", price: "24", link: "https://www.wowhead.com/wotlk/item=46041/starfall-girdle"},
+  {image: "inv_misc_cape_06.jpg", name: "Drape of the Messenger", price: "19", link: "https://www.wowhead.com/wotlk/item=46042/drape-of-the-messenger"},
+  {image: "inv_gauntlets_54.jpg", name: "Gloves of the Endless Dark", price: "24", link: "https://www.wowhead.com/wotlk/item=46043/gloves-of-the-endless-dark"},
+  {image: "inv_shoulder_31.jpg", name: "Observer's Mantle", price: "24", link: "https://www.wowhead.com/wotlk/item=46044/observers-mantle"},  
+];
+let price = 0;
+const priceEl = document.getElementById("price");
+const sidebar = document.querySelector("sidebar");
+const tbody = document.querySelector("tbody");
+data.forEach(item => {
+  const row = document.createElement("tr");
+
+  const checkbox1Cell = document.createElement("td");
+  const checkbox1 = document.createElement("input");
+        checkbox1.setAttribute("type", "checkbox");
+  checkbox1Cell.appendChild(checkbox1);
+  checkbox1.addEventListener('change', () => {
+    if (checkbox1.checked) {
+      price += Number(item.price);
+    } else { 
+      price -= Number(item.price);
+    }
+    priceEl!.innerHTML = String(price);
+  });
+
+  const checkbox2Cell = document.createElement("td");
+  const checkbox2 = document.createElement("input");
+        checkbox2.setAttribute("type", "checkbox");
+  checkbox2Cell.appendChild(checkbox2);
+  checkbox2.addEventListener('change', () => {
+    if (checkbox2.checked) {
+      price += Number(item.price);
+    } else { 
+      price -= Number(item.price);
+    }
+    priceEl!.innerHTML = String(price);
+  });
+
+  const iconCell = document.createElement("td");
+  const iconLink = document.createElement("a");
+        iconLink.setAttribute("href", item.link);
+  const iconImage = document.createElement("img");
+        iconImage.setAttribute("src", `https://wow.zamimg.com/images/wow/icons/medium/${item.image}`);
+  iconLink.appendChild(iconImage);
+  iconCell.appendChild(iconLink);
+
+  const nameCell = document.createElement("td");
+  const nameLink = document.createElement("a");
+        nameLink.setAttribute("href", item.link);
+        nameLink.innerText = item.name;
+        nameLink.classList.add('name');
+  nameCell.appendChild(nameLink);
+
+  const priceCell = document.createElement("td");
+  const priceLink = document.createElement("a");
+        priceLink.setAttribute("href", item.link);
+        priceLink.innerText = item.price;
+        priceLink.classList.add('price');
+  priceCell.appendChild(priceLink);
+
+  row.appendChild(checkbox1Cell);
+  row.appendChild(checkbox2Cell);
+  row.appendChild(iconCell);
+  row.appendChild(nameCell);
+  row.appendChild(priceCell);
+
+  tbody?.appendChild(row);
+});
+  </script>
+</html>
